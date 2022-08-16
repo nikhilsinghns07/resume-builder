@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Checkbox, message, Spin } from "antd";
+import { Form, Input, Button, message, Spin } from "antd";
 import "../resources/authentication.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,7 +10,7 @@ function Register() {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      await axios.post("api/user/register", values);
+      await axios.post("/register", values);
       setLoading(false);
       message.success("Registration successfull");
     } catch (error) {

@@ -1,11 +1,15 @@
 const express = require("express");
 const app = express();
 const dbConnect = require("./dbConnect");
-app.use(express.json());
+const bodyparser = require('body-parser')
+const cors = require('cors')
 const port = process.env.PORT || 5000;
-const userRoute = require("./routes/userRoute");
 const path = require("path");
-app.use("/api/user/", userRoute);
+const authRoutes = require('./routes/auth')
+app.use(cors())
+app.use(bodyparser.json())
+
+app.use(authRoutes)
 
 if (process.env.NODE_ENV === "production") {
   app.use("/", express.static("client/build"));
@@ -15,5 +19,5 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.get("/", (req, res) => res.send("Hello World!"));
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+app.listen(port, () => console.log(`Listening on port ${port}!`));
